@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الروايات الطويلة</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #007acc;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .story {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .story h2 {
+            color: #333333;
+        }
+
+        .story p {
+            line-height: 1.6;
+            color: #555555;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1rem;
+            color: white;
+            background-color: #007acc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005f99;
+        }
+    </style>
+</head>
+<body>
+    <h1>الروايات الطويلة</h1>
+
+    <div id="story-container" class="story">
+        <h2>رحلة إلى مملكة الغابة</h2>
+        <p>
+            في يومٍ مشمس، قرر الطفل "علي" أن يذهب إلى الغابة القريبة من قريته لاكتشاف عجائبها. بينما كان يسير بين الأشجار، لمح طائرًا صغيرًا بجناح مكسور. اقترب منه بحذر وقال: "لا تقلق، سأساعدك." أخذ علي الطائر إلى جدته، التي عالجت جناحه ببعض الأعشاب. بعد أيام، عاد الطائر ليشكر علي وأخبره أنه يعيش في مملكة الغابة، حيث تحكم الحيوانات بسلام وتعاون. دعا الطائر علي لزيارة المملكة، وهناك رأى أشياء لم يكن يتخيلها: أسود تلعب مع الغزلان، وأرانب تبني بيوتها بجانب النهر. أدرك علي أن التعاون يجعل الحياة أفضل.
+        </p>
+    </div>
+
+    <div class="buttons">
+        <button id="prev-btn">السابق</button>
+        <button id="next-btn">التالي</button>
+        <button id="read-btn">استمع إلى القصة</button>
+        <button id="record-btn">اقرأ القصة</button>
+    </div>
+
+    <script>
+        const stories = [
+            {
+                title: "رحلة إلى مملكة الغابة",
+                text: "في يومٍ مشمس، قرر الطفل \"علي\" أن يذهب إلى الغابة القريبة من قريته لاكتشاف عجائبها. بينما كان يسير بين الأشجار، لمح طائرًا صغيرًا بجناح مكسور. اقترب منه بحذر وقال: \"لا تقلق، سأساعدك.\" أخذ علي الطائر إلى جدته، التي عالجت جناحه ببعض الأعشاب. بعد أيام، عاد الطائر ليشكر علي وأخبره أنه يعيش في مملكة الغابة، حيث تحكم الحيوانات بسلام وتعاون. دعا الطائر علي لزيارة المملكة، وهناك رأى أشياء لم يكن يتخيلها: أسود تلعب مع الغزلان، وأرانب تبني بيوتها بجانب النهر. أدرك علي أن التعاون يجعل الحياة أفضل."
+            },
+            {
+                title: "نور في عالم الظلال",
+                text: "في قرية بعيدة، كانت \"نور\" فتاة شجاعة تعيش في بيت صغير مع جدتها. كانت القرية تعاني من ظلال سوداء غريبة تغطي السماء ليلاً، تجعل الناس يخافون الخروج. أخبرتها جدتها عن مصباح أسطوري مخبأ في كهف الجبل، يمكنه أن يبدد الظلال. انطلقت نور في رحلتها الشجاعة، حاملةً حقيبة صغيرة مليئة بالماء والطعام. في الطريق، واجهت الذئب الرمادي، الذي قال لها: \"لن أسمح لك بالمرور إلا إذا أعطيتني قطعة خبز.\" فكرت نور قليلاً وأعطته خبزتها الأخيرة، فقال الذئب: \"ستجدين الكهف خلف تلك الشجرة الكبيرة.\" عندما وصلت نور إلى الكهف، وجدت المصباح، ولكن كان عليها أن تنطق عبارة شجاعة: \"أنا نور، وسأضيء الطريق للجميع.\" بمجرد أن أمسكت بالمصباح، تلاشت الظلال وعاد الضوء إلى القرية."
+            },
+            {
+                title: "مغامرة في أعماق البحر",
+                text: "قرر الصبي \"كريم\" أن يستكشف البحر مع جده البحار القديم. على متن قارب صغير، غاصا معًا في أعماق المحيط. شاهد كريم الشعب المرجانية والأسماك الملونة، ولكن فجأة رأى شيئًا يلمع في الأعماق. اكتشفا صندوقًا قديمًا يحتوي على خريطة كنز. قرر الاثنان أن يتبعا الخريطة، ليكتشفا جزيرة مليئة بالكنوز والغرائب. كانت مغامرة لا تُنسى!"
+            }
+        ];
+
+        let currentStory = 0;
+
+        const storyContainer = document.getElementById("story-container");
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        const readBtn = document.getElementById("read-btn");
+        const recordBtn = document.getElementById("record-btn");
+
+        function updateStory() {
+            storyContainer.querySelector("h2").textContent = stories[currentStory].title;
+            storyContainer.querySelector("p").textContent = stories[currentStory].text;
+        }
+
+        prevBtn.addEventListener("click", () => {
+            if (currentStory > 0) {
+                currentStory--;
+                updateStory();
+            }
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (currentStory < stories.length - 1) {
+                currentStory++;
+                updateStory();
+            }
+        });
+
+        readBtn.addEventListener("click", () => {
+            const utterance = new SpeechSynthesisUtterance(stories[currentStory].text);
+            utterance.lang = "ar-SA";
+            speechSynthesis.speak(utterance);
+        });
+
+
+        recordBtn.addEventListener("click", () => {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "ar-SA";
+            recognition.interimResults = false;
+
+            // Create or get result element
+            let resultElement = document.getElementById("reading-result");
+            if (!resultElement) {
+                resultElement = document.createElement('p');
+                resultElement.id = 'reading-result';
+                resultElement.style.marginTop = '20px';
+                resultElement.style.color = '#555';
+                storyContainer.appendChild(resultElement);
+            }
+
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const spokenText = event.results[0][0].transcript;
+                resultElement.textContent = `ما قلته: "${spokenText}"`;
+            };
+
+            recognition.onerror = function() {
+                resultElement.textContent = "حدث خطأ أثناء التسجيل. حاول مرة أخرى.";
+            };
+        });
+
+        updateStory();
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجمل القصيرة</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .sentence-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #child-text {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>معاً لنتعلم | يوسف حجاب</h1>
+    <div class="sentence-container">
+        <p id="sentence">محمد ذهب إلى المدرسة.</p>
+        <button onclick="speakText()">استمع</button>
+        <button onclick="nextSentence()">الجملة التالية</button>
+        <button onclick="startRecognition()">اقرأ الجملة</button>
+        <p id="child-text"></p>
+    </div>
+    <script>
+        // قائمة الجمل القصيرة
+        const shortSentences = [
+            "محمد ذهب إلى المدرسة.",
+            "الطفل يلعب بالكرة.",
+            "الأم تطبخ في المطبخ.",
+            "القطة تنام على الكرسي.",
+            "السماء زرقاء وجميلة.",
+            "العصفور يغرد في الشجرة.",
+            "الأب يعمل في الحقل.",
+            "السيارة تسير في الشارع.",
+            "الولد يرسم لوحة جميلة.",
+            "البنت تقرأ كتابًا ممتعًا.",
+            "الزهرة تنمو في الحديقة.",
+            "الطفل يشرب كوبًا من الماء.",
+            "النحلة تطير فوق الزهرة.",
+            "الأصدقاء يلعبون في الساحة.",
+            "الكتاب على الطاولة.",
+            "الشمس تشرق في الصباح.",
+            "الطائر يطير في السماء.",
+            "الطفل يأكل تفاحة.",
+            "الجد يحكي قصة.",
+            "البحر واسع وجميل."
+        ];
+
+        let currentSentenceIndex = 0;
+
+        // عرض الجملة التالية
+        function nextSentence() {
+            currentSentenceIndex = (currentSentenceIndex + 1) % shortSentences.length;
+            document.getElementById("sentence").textContent = shortSentences[currentSentenceIndex];
+        }
+
+        // تشغيل النص صوتيًا
+        function speakText() {
+            const sentence = document.getElementById("sentence").textContent;
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.lang = "ar-SA"; // تعيين اللغة إلى العربية
+            speechSynthesis.speak(utterance);
+        }
+
+        // ميزة تسجيل صوت الطفل
+        function startRecognition() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "ar-SA"; // اللغة العربية
+            recognition.interimResults = false;
+
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const childText = event.results[0][0].transcript;
+                document.getElementById("child-text").textContent = `ما قلته: "${childText}"`;
+            };
+
+            recognition.onerror = (event) => {
+                document.getElementById("child-text").textContent = "حدث خطأ أثناء التسجيل. حاول مرة أخرى.";
+            };
+        }
+    </script>
+</body>
+</html>
+

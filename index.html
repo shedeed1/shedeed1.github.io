@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معًا لنتعلم</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #0077b6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        header span {
+            color: #ffdd00;
+        }
+        .content {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .content p {
+            font-size: 20px;
+            color: #333;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #00b4d8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0096c7;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        يوسف حجاب | <span>معًا لنتعلم</span>
+    </header>
+    <div class="content">
+        <p>مرحبًا بك في تطبيق "معًا لنتعلم"</p>
+        <button onclick="startChallenge()">ابدأ التحدي</button>
+    </div>
+    <script>
+        function startChallenge() {
+            window.location.href = "challenge.html";
+        }
+    </script>
+</body>
+</html>

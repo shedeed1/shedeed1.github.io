@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ترتيب الكلمات</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .sentence-container {
+            margin-bottom: 20px;
+        }
+        .word {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #ffffff;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            cursor: grab;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .drop-zone {
+            margin: 20px auto;
+            padding: 10px;
+            width: 80%;
+            min-height: 70px;
+            border: 2px dashed #007bff;
+            border-radius: 5px;
+            background-color: #e9f7fe;
+            color: #555;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .drop-zone .word {
+            background-color: #d1ecf1;
+            color: #0056b3;
+            border: 1px solid #0056b3;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ترتيب الكلمات</h1>
+    <div class="sentence-container">
+        <div id="words"></div>
+    </div>
+    <div id="dropZone" class="drop-zone">
+        <p>أسقط الكلمات هنا بالترتيب الصحيح</p>
+    </div>
+    <button id="checkOrder">تحقق</button>
+    <button id="newSentence">جملة جديدة</button>
+    <p id="result"></p>
+
+    <script>
+        $(function() {
+            const sentences = [
+                ["محمد", "ذهب", "إلى", "المدرسة"],
+                ["الطائرة", "تحلق", "في", "السماء"],
+                ["الأطفال", "يلعبون", "في", "الحديقة"],
+                ["الكتاب", "مفيد", "للطلاب"],
+                ["السيارة", "تقف", "أمام", "المنزل"]
+            ];
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            function loadNewSentence() {
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                const selectedSentence = sentences[randomIndex];
+                const shuffledWords = shuffle([...selectedSentence]);
+
+                $("#words").empty();
+                $("#dropZone").empty().append('<p>أسقط الكلمات هنا بالترتيب الصحيح</p>');
+
+                shuffledWords.forEach(word => {
+                    $("#words").append(`<div class="word">${word}</div>`);
+                });
+
+                $(".word").draggable({
+                    revert: "invalid",
+                    containment: "document"
+                });
+
+                $("#dropZone").droppable({
+                    accept: ".word",
+                    drop: function(event, ui) {
+                        $(this).append(ui.draggable.css({ position: "relative", top: "", left: "" }));
+                    }
+                });
+
+                $("#checkOrder").off("click").on("click", function() {
+                    let userOrder = [];
+                    $("#dropZone .word").each(function() {
+                        userOrder.push($(this).text());
+                    });
+
+                    if (JSON.stringify(userOrder) === JSON.stringify(selectedSentence)) {
+                        $("#result").text("رائع! لقد رتبت الكلمات بشكل صحيح!").css("color", "#28a745");
+                    } else {
+                        $("#result").text("خطأ! حاول مرة أخرى.").css("color", "#dc3545");
+                    }
+                });
+            }
+
+            $("#newSentence").on("click", loadNewSentence);
+
+            loadNewSentence();
+        });
+    </script>
+</body>
+</html>

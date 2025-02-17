@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قصص قصيرة</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2em;
+            color: #00509e;
+            margin-bottom: 10px;
+        }
+        .story-container {
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #e6f2ff;
+            border-radius: 10px;
+            width: 80%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .story-title {
+            font-size: 1.5em;
+            color: #003366;
+        }
+        .story-content {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #00509e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <h1>قصص قصيرة</h1>
+
+    <div id="storyArea" class="story-container">
+        <h2 class="story-title" id="storyTitle">القصة الأولى</h2>
+        <p class="story-content" id="storyContent">كان هناك أرنب صغير يحب القفز بين الأشجار. في يوم من الأيام، قابل السلحفاة وقررا إقامة سباق.</p>
+        <button onclick="readStory()">اسمع القصة</button>
+        <button onclick="startRecording()">اقرأ القصة</button>
+        <button onclick="nextStory()">القصة التالية</button>
+    </div>
+
+    <script>
+        const stories = [
+            { title: "القصة الأولى", content: "كان هناك أرنب صغير يحب القفز بين الأشجار. في يوم من الأيام، قابل السلحفاة وقررا إقامة سباق." },
+            { title: "القصة الثانية", content: "في إحدى الغابات البعيدة، كان يعيش أسد قوي يحب مساعدة الحيوانات." },
+            { title: "القصة الثالثة", content: "ذهب محمد مع أسرته إلى الحديقة وشاهد الكثير من الطيور الجميلة." },
+            { title: "القصة الرابعة", content: "كان هناك نهر صافٍ، وكانت الأسماك تلعب فيه بسعادة." },
+            { title: "القصة الخامسة", content: "استيقظت الشمس صباحًا وأضاءت العالم بلونها الذهبي." },
+            { title: "القصة السادسة", content: "في فصل الشتاء، كانت الثلوج تغطي الجبال والأطفال يلعبون بكرات الثلج." },
+            { title: "القصة السابعة", content: "ذهب أحمد إلى المكتبة ليقرأ قصة عن المغامرات." },
+            { title: "القصة الثامنة", content: "كانت هناك زرافة طويلة تحب أكل أوراق الشجر من أعلى الأشجار." },
+            { title: "القصة التاسعة", content: "في الصحراء، كانت الجمال تمشي ببطء بحثًا عن الماء." },
+            { title: "القصة العاشرة", content: "في ليلة مقمرة، اجتمع الأطفال ليستمعوا إلى حكاية الجدة." }
+        ];
+
+        let currentStoryIndex = 0;
+
+        function readStory() {
+            const story = stories[currentStoryIndex].content;
+            const utterance = new SpeechSynthesisUtterance(story);
+            utterance.lang = "ar-SA";
+            speechSynthesis.speak(utterance);
+        }
+
+        function startRecording() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "ar-SA";
+            recognition.interimResults = false;
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const spokenText = event.results[0][0].transcript;
+                alert("ما قلته: \"" + spokenText + "\"");
+            };
+
+            recognition.onerror = function() {
+                alert("حدث خطأ أثناء التسجيل. حاول مرة أخرى.");
+            };
+        }
+
+
+        function nextStory() {
+            currentStoryIndex = (currentStoryIndex + 1) % stories.length;
+            document.getElementById("storyTitle").textContent = stories[currentStoryIndex].title;
+            document.getElementById("storyContent").textContent = stories[currentStoryIndex].content;
+        }
+    </script>
+</body>
+</html>

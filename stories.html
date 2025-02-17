@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الروايات | معًا لنتعلم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>معًا لنتعلم | يوسف حجاب</h1>
+    </header>
+    <main>
+        <section class="stories-section">
+            <h2>اختَر نوع الرواية:</h2>
+            <div class="story-options">
+                <div class="story-card">
+                    <h3>قصص قصيرة</h3>
+                    <p>اختر من بين مجموعة من القصص القصيرة الممتعة!</p>
+                    <button onclick="navigateTo('short_stories.html')">ابدأ</button>
+                </div>
+                <div class="story-card">
+                    <h3>قصص طويلة</h3>
+                    <p>اختر من بين مجموعة من القصص الطويلة الشيقة!</p>
+                    <button onclick="navigateTo('long_stories.html')">ابدأ</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 معًا لنتعلم | يوسف حجاب</p>
+    </footer>
+
+    <script>
+        // دالة التنقل بين الصفحات
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

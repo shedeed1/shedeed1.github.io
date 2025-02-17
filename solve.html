@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حل المعادلات - معًا لنتعلم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>معًا لنتعلم | حل المعادلات</h1>
+    </header>
+
+    <main>
+        <section class="math-section">
+            <h2>حل المعادلات</h2>
+            <p>قم بحل المعادلات البسيطة للحصول على نقاط!</p>
+
+            <div class="problem-container">
+                <div id="problem">5 + 3 = ?</div>
+                <input type="number" id="answer" placeholder="أدخل إجابتك هنا">
+                <button onclick="checkAnswer()">تحقق</button>
+            </div>
+
+            <div id="feedback" class="feedback"></div>
+        </section>
+    </main>
+
+    <script>
+        const problems = [
+            { question: "5 + 3 = ?", answer: 8 },
+            { question: "10 - 4 = ?", answer: 6 },
+            { question: "6 \u00d7 2 = ?", answer: 12 },
+            { question: "16 \u00f7 4 = ?", answer: 4 },
+            { question: "7 + 2 = ?", answer: 9 },
+            { question: "9 - 5 = ?", answer: 4 },
+            { question: "3 \u00d7 3 = ?", answer: 9 },
+            { question: "12 \u00f7 3 = ?", answer: 4 }
+        ];
+
+        let currentProblemIndex = 0;
+
+        function displayProblem() {
+            const problem = problems[currentProblemIndex];
+            document.getElementById('problem').textContent = problem.question;
+            document.getElementById('answer').value = "";
+            document.getElementById('feedback').textContent = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value);
+            const correctAnswer = problems[currentProblemIndex].answer;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('feedback').textContent = "إجابة صحيحة! ممتاز";
+                document.getElementById('feedback').style.color = "green";
+                currentProblemIndex = (currentProblemIndex + 1) % problems.length;
+                setTimeout(displayProblem, 1500);
+            } else {
+                document.getElementById('feedback').textContent = "إجابة خاطئة. حاول مرة أخرى.";
+                document.getElementById('feedback').style.color = "red";
+            }
+        }
+
+        window.onload = displayProblem;
+    </script>
+</body>
+</html>

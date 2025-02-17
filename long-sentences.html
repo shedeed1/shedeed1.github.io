@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الجمل الطويلة</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .sentence-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 10px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>معاً لنتعلم | يوسف حجاب</h1>
+    <div class="sentence-container">
+        <p id="sentence">كان الجو جميلاً والسماء صافية.</p>
+        <button onclick="speakText()">استمع</button>
+        <button onclick="nextSentence()">الجملة التالية</button>
+        <button onclick="startRecognition()">اقرأ</button>
+        <p id="result" class="result"></p>
+    </div>
+    <script>
+        // قائمة الجمل الطويلة
+        const sentences = [
+            "كان الجو جميلاً والسماء صافية.",
+            "ذهب أحمد إلى الحديقة ليلعب مع أصدقائه.",
+            "في الصباح الباكر، استيقظت مريم لتقرأ كتابها المفضل.",
+            "أخذ محمد قلمه وبدأ في كتابة قصته.",
+            "في المساء، جلست العائلة لتناول العشاء معًا.",
+            "ذهبت ليلى إلى المكتبة لاستعارة كتاب جديد.",
+            "ركب سامي دراجته ليكتشف الحي الجديد.",
+            "في يوم مشمس، خرج الأطفال للعب في الحديقة.",
+            "تعلَّمت سارة كيف تصنع كعكة الشوكولاتة.",
+            "رأى كريم قوس قزح بعد نزول المطر.",
+            "كان الجد يروي قصصًا ممتعة للأطفال حول النار.",
+            "ذهبت فاطمة إلى السوق لشراء الخضروات الطازجة.",
+            "لعب يوسف كرة القدم في الملعب مع فريقه.",
+            "شاهد الأطفال فيلمًا كرتونيًا ممتعًا مع أصدقائهم.",
+            "كانت الطيور تغرد في الصباح وتنشر البهجة.",
+            "جلست هدى بجانب الشاطئ وكتبت في مذكراتها.",
+            "في ليلة هادئة، قرر سامي مشاهدة النجوم مع والده.",
+            "عاد أحمد من المدرسة متحمسًا ليروي لأمه ما حدث.",
+            "اجتمعت العائلة حول الطاولة لتناول الإفطار معًا.",
+            "ساعد خالد أخته في حل واجبها المدرسي."
+        ];
+
+        let currentSentenceIndex = 0;
+
+        // عرض الجملة التالية
+        function nextSentence() {
+            currentSentenceIndex = (currentSentenceIndex + 1) % sentences.length;
+            document.getElementById("sentence").textContent = sentences[currentSentenceIndex];
+            document.getElementById("result").textContent = "";
+        }
+
+        // تشغيل النص صوتيًا
+        function speakText() {
+            const sentence = document.getElementById("sentence").textContent;
+            const utterance = new SpeechSynthesisUtterance(sentence);
+            utterance.lang = "ar-SA"; // تعيين اللغة إلى العربية
+            speechSynthesis.speak(utterance);
+        }
+
+        // بدء التعرف على الصوت
+        function startRecognition() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "ar-SA";
+            recognition.interimResults = false;
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const userSpeech = event.results[0][0].transcript;
+                document.getElementById("result").textContent = "ما قلته: \"" + userSpeech + "\"";
+            };
+
+            recognition.onerror = function() {
+                document.getElementById("result").textContent = "حدث خطأ أثناء التسجيل. حاول مرة أخرى.";
+            };
+        }
+    </script>
+</body>
+</html>
